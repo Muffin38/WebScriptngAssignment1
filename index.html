@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>MDIA 2294</title>
+	
+	<style>
+	    thead{
+	        font-weight:bold;
+	    }
+	    
+	    td{
+	        padding-left:5px;
+	        padding-right:5px;	        
+	    }
+	    
+	    td.sub-total{
+	        text-align:right;	        
+	    }
+	</style>
+</head>
+<body>
+	<h1>MDIA 2294: ACME Corp Invoice</h1>
+	
+	<table>
+	    <thead>
+	        <tr>
+	            <td>ITEM</td>
+	            <td>DESCRIPTION</td>
+	            <td>QTY</td>
+	            <td>PRICE</td>
+	            <td>LINE TOTAL</td>
+	        </tr>
+	    </thead>
+	    <tbody>
+	        <tr>
+	            <td>1</td>
+	            <td><input id="line-1-description" type="text" size="40" value="Anvil" /></td>
+	            <td><input id="line-1-quantity" type="text" size="3" value="5" /></td>
+	            <td><input id="line-1-price" type="text" size="6" value="35.00" /></td>
+	            <td class="sub-total"><span id="line-1"></span></td>
+	        </tr>
+	        <tr>
+	            <td>2</td>
+	            <td><input id="line-2-description" type="text" size="40" value="Rocket Skates (each)" /></td>
+	            <td><input id="line-2-quantity" type="text" size="3" value="2" /></td>
+	            <td><input id="line-2-price" type="text" size="6" value="24.99" /></td>
+	            <td class="sub-total"><span id="line-2"></span></td>
+	        </tr>
+	        <tr>
+	            <td>3</td>
+	            <td><input id="line-3-description" type="text" size="40" value="Giant Magnet" /></td>
+	            <td><input id="line-3-quantity" type="text" size="3" value="1" /></td>
+	            <td><input id="line-3-price" type="text" size="6" value="125.50" /></td>
+	            <td class="sub-total"><span id="line-3"></span></td>
+	        </tr>
+	        <tr>
+	            <td>4</td>
+	            <td><input id="line-4-description" type="text" size="40" value="Ball bearings" /></td>
+	            <td><input id="line-4-quantity" type="text" size="3" value="1000" /></td>
+	            <td><input id="line-4-price" type="text" size="6" value="0.25" /></td>
+	            <td class="sub-total"><span id="line-4"></span></td>
+	        </tr>
+	        <tr>
+	            <td>5</td>
+	            <td><input id="line-5-description" type="text" size="40" value="Portable holes" /></td>
+	            <td><input id="line-5-quantity" type="text" size="3" value="12" /></td>
+	            <td><input id="line-5-price" type="text" size="6" value="15.25" /></td>
+	            <td class="sub-total"><span id="line-5"></span></td>
+	        </tr>
+	    </tbody>
+	    <tfoot>
+	        <tr>
+	            <td colspan="4" style="text-align:right;">SUB TOTAL</td>  
+	            <td class="sub-total"><span id="sub-total"></span></td>	        
+	        </tr>
+	        <tr>
+	            <td colspan="4" style="text-align:right;">DISCOUNT</td>  
+	            <td class="sub-total"><span id="discount"></span></td>	        
+	        </tr>
+	        <tr>
+	            <td colspan="4" style="text-align:right;">TAX</td>  
+	            <td class="sub-total"><span id="tax"></span></td>	        
+	        </tr>
+	        <tr>
+	            <td colspan="4" style="text-align:right;">TOTAL</td>  
+	            <td class="sub-total" style="border-top:solid black 1px"><span id="total"></span></td>	        
+	        </tr>
+	    </tfoot>	    
+	</table>
+	
+	<div><button id="calculate">Calculate</button></div>
+	<div>NOTE: discounts of 10% are given to orders over $250</div>
+
+	<script>
+		// this line is setting a variable and its TAG.
+		// const means it'll never be changed.
+		// the TAG goes right after the variable e.g calc_btn
+		// document.querySelector links to the HTML above named #calculate.
+		const calc_btn = document.querySelector ('#calculate');
+
+		// This line is the function that will play based on the action e.g .addEventListener
+		// calculate is the TAG connected to the function.
+		// under the function you will write the instructions.
+		// right now it is telling the console.log to show hello world.
+	    function calculate() {
+			// Changable Variable set to 0
+			// let means change and be affected by other lines of code. Very flexable.
+			// line_total is the TAG
+			let line_total = 0;
+			let sub_total = 0;
+			let discount = 0;
+			let tax = 0;
+			let total = 0;
+
+		// this line is setting anew variable and TAG
+		// document.querySelector is telling the program to look through the code for a certain TAG
+		// #line-1-quantity is the TAG within the HTML.
+		// value is linking to the preset value attribute under the line 1 quantity TAG
+			const line_1_quantity = document.querySelector('#line-1-quantity').value;
+			const line_1_price = document.querySelector('#line-1-price').value;
+			// line_total is a TAG linking to the above variable.
+			// line_1_quantity * Line_1_price are the TAGs that hold the preset value attribute.
+			// * means multiply.
+			line_total = line_1_quantity * line_1_price;
+			// sub_total is the TAG to the set variable above.
+			// this is combining the results of the lines_total
+			// += ths is telling the code to combine the preset value attribute of sub_total to combine with the line_total.
+			sub_total += line_total;
+			//.innerHTML means to only change the HTML
+			// Leaving css and other code alone.
+			// .toFixed(2) will cut the decimal down to two zeros placements. eg 15.00
+			document.querySelector('#line-1').innerHTML = "$ " + line_total.toFixed(2);
+
+			const line_2_quantity = document.querySelector('#line-2-quantity').value;
+			const line_2_price = document.querySelector('#line-2-price').value;
+			line_total = line_2_quantity * line_2_price;
+			sub_total += line_total;
+			document.querySelector('#line-2').innerHTML = "$ " + line_total.toFixed(2);
+
+			const line_3_quantity = document.querySelector('#line-3-quantity').value
+			const line_3_price = document.querySelector('#line-3-price').value;
+			line_total = line_3_quantity * line_3_price;
+			sub_total += line_total;
+			document.querySelector('#line-3').innerHTML = "$ " + line_total.toFixed(2);
+
+			const line_4_quantity = document.querySelector('#line-4-quantity').value
+			const line_4_price = document.querySelector('#line-4-price').value
+			line_total = line_4_quantity * line_4_price;
+			sub_total += line_total;
+			document.querySelector('#line-4').innerHTML = "$ " + line_total.toFixed(2);
+
+			const line_5_quantity = document.querySelector('#line-5-quantity').value
+			const line_5_price = document.querySelector('#line-5-price').value;
+			line_total = line_5_quantity * line_5_price
+			sub_total += line_total;
+			document.querySelector('#line-5').innerHTML = "$ " + line_total.toFixed(2);
+			// this is the combined line_totals displayed on the sub-total
+			document.querySelector('#sub-total').innerHTML = "$ " + sub_total.toFixed(2);
+			// if statements are if this happens do this.
+			// the sub_total combine value is being evaluated to see if its >= 250
+			// if so it will earn the %10 discount.
+			// -= subtracts the discount from the sub_total
+			// tax is multiplied after. on the new sub_total
+			if (sub_total >= 250) {
+				discount = sub_total * 0.1;
+				sub_total -= discount;
+				tax = sub_total * 0.12;
+			//  else means if the top doesnt apply then do this.
+			} else {
+				discount = 0
+				tax = sub_total * 0.12;
+			}
+
+			document.querySelector('#discount').innerHTML = "$ " + discount.toFixed(2);
+			document.querySelector('#tax').innerHTML = "$ " + tax.toFixed(2)
+			total = sub_total + tax;
+			document.querySelector('#total').innerHTML = "$ " + total.toFixed(2);
+
+			// + is combining the strings together.
+			// line_1 is the TAG set for the quantity.
+			console.log(line_1_quantity * line_1_price);
+
+	    }
+		// this line is setting an event or action that the website is looking for.
+		// calc_btn is linking to the TAG we made for the variable.
+		// .addEventListener links an action like clicking to the function.
+		// calculate is setting a link to the function. calculate is the TAG for the function.
+		calc_btn.addEventListener('click', calculate)
+	
+
+    </script>
+</body>
+</html>
